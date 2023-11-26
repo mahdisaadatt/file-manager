@@ -1,4 +1,4 @@
-const ENDPOINT = 'http://127.0.0.1:8000';
+const ENDPOINT = 'https://realestate-manager.iran.liara.run';
 
 // Get property
 export const getProperties = async () => {
