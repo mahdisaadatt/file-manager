@@ -18,12 +18,12 @@ const Header = () => {
         {isLoggedIn ? (
           <div className="flex flex-row justify-center items-center gap-2">
             <Popover />
-            <Link
+            {/* <Link
               href="/properties/add"
               className="p-3 bg-green-300 rounded-lg hover:scale-110 transition"
             >
               ایجاد فایل جدید
-            </Link>
+            </Link> */}
           </div>
         ) : null}
       </nav>
