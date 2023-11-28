@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Input from '@/components/Input';
 import { UserContext } from '@/context/UserContext';
 import toast from 'react-hot-toast';
@@ -11,6 +11,7 @@ const EditUserPage = () => {
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(true);
   const { isLoggedIn, editUser } = useContext(UserContext);
   const onEditClick = data => {
     if (data.email === '') {
@@ -19,10 +20,15 @@ const EditUserPage = () => {
       editUser(data);
     }
   };
-  if (!isLoggedIn) {
+  useEffect(() => {
+    setLoading(false);
+  });
+  if (!loading && !isLoggedIn) {
     return <LoginButton />;
   }
-  return (
+  return loading ? (
+    <p>لطفا صبر کنید...</p>
+  ) : (
     <form
       className="flex tablet:items-start items-center justify-center flex-wrap w-full py-8 px-2 bg-zinc-200 rounded-xl"
       onSubmit={e => e.preventDefault()}

@@ -9,25 +9,33 @@ import LoginButton from '@/components/LoginButton';
 export default function Home() {
   const [filters, setFilters] = useState(null);
   const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { isLoggedIn } = useContext(UserContext);
 
   const getData = async () => {
     getProperties()
       .then(res => res.json())
-      .then(res => setProperties(res));
+      .then(res => setProperties(res))
+      .then(() => setLoading(false));
   };
   useEffect(() => {
     getData();
   }, []);
 
-  if (!isLoggedIn) {
+  if (!loading && !isLoggedIn) {
     return <LoginButton />;
   }
 
   return (
     <div className="mobile:p-6">
-      <FilterBar setFilters={setFilters} filters={filters} />
-      <PropertyList properties={properties} filters={filters} />
+      {loading ? (
+        <p>لطفا صبر کنید...</p>
+      ) : (
+        <>
+          <FilterBar setFilters={setFilters} filters={filters} />
+          <PropertyList properties={properties} filters={filters} />
+        </>
+      )}
     </div>
   );
 }

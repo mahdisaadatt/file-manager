@@ -3,7 +3,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import Input from '@/components/Input';
 import { UserContext } from '@/context/UserContext';
 import toast from 'react-hot-toast';
-import Loading from '@/app/loading';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -23,7 +22,7 @@ const Login = () => {
     }
   };
   if (loading) {
-    return <Loading />;
+    <p>لطفا صبر کنید...</p>;
   }
   return (
     <form
