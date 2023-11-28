@@ -7,20 +7,26 @@ import LoginButton from '@/components/LoginButton';
 
 const MyFilesPage = () => {
   const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { isLoggedIn } = useContext(UserContext);
 
   const getData = async () => {
     getUserProperties()
       .then(res => res.json())
-      .then(res => setProperties(res));
+      .then(res => setProperties(res))
+      .then(() => setLoading(false));
   };
   useEffect(() => {
     getData();
   }, []);
-  if (!isLoggedIn) {
+  if (!loading && !isLoggedIn) {
     return <LoginButton />;
   }
-  return <PropertyList properties={properties} />;
+  return loading ? (
+    <p>لطفا صبر کنید...</p>
+  ) : (
+    <PropertyList properties={properties} />
+  );
 };
 
 export default MyFilesPage;
