@@ -39,6 +39,7 @@ const Login = () => {
         <Input
           id="password"
           title="رمز عبور"
+          type="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
