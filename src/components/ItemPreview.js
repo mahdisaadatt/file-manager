@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Badge from './Badge';
 import noImageIcon from '../app/assets/images/no_image-icon.svg';
+import { convertToPersian } from '@/utils';
 
 const ItemPreview = ({ data }) => {
   const date = new Date(data?.createdAt).toLocaleDateString('fa-IR');
@@ -19,7 +20,7 @@ const ItemPreview = ({ data }) => {
           width={500}
           height={500}
           priority
-          className="rounded-lg shadow-xl tablet:w-full tablet:h-56 desktop:h-80 wide:w-72 wide:h-full w-full"
+          className="rounded-lg shadow-xl tablet:w-full tablet:h-56 desktop:h-80 wide:w-72 wide:h-60 w-full"
         />
       ) : (
         <Image
@@ -28,7 +29,7 @@ const ItemPreview = ({ data }) => {
           width={500}
           height={500}
           loading="lazy"
-          className="rounded-lg shadow-xl tablet:w-full tablet:h-56 desktop:h-80 wide:w-72 wide:h-full w-full"
+          className="rounded-lg shadow-xl tablet:w-full tablet:h-56 desktop:h-80 wide:w-72 wide:h-60 w-full"
         />
       )}
 
@@ -45,22 +46,34 @@ const ItemPreview = ({ data }) => {
         <div className="flex flex-col justify-center my-4 gap-1">
           {data?.type === 'Home' ? (
             <>
-              {data?.homeType === 'فروش' ? (
-                <>
-                  <p className="font-semibold">قیمت : {data?.price}</p>
-                  <p className="font-semibold">
-                    قیمت به ازای هر متر مکعب : {data?.pricePerMeter}
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p className="font-semibold">رهن : {data?.mortgage}</p>
-                  <p className="font-semibold">اجاره : {data?.rent}</p>
-                </>
-              )}
+              <div className="mb-3">
+                {data?.homeType === 'فروش' ? (
+                  <>
+                    <p className="font-semibold">
+                      قیمت : {convertToPersian(data?.price)}
+                    </p>
+                    <p className="font-semibold">
+                      قیمت به ازای هر متر مکعب :{' '}
+                      {convertToPersian(data?.pricePerMeter)}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="font-semibold">
+                      رهن : {convertToPersian(data?.mortgage)}
+                    </p>
+                    <p className="font-semibold">
+                      اجاره : {convertToPersian(data?.rent)}
+                    </p>
+                  </>
+                )}
+              </div>
+              <p>متراژ : {data?.meterage.toLocaleString()}</p>
             </>
           ) : (
-            <p className="font-semibold">قیمت : {data?.price}</p>
+            <p className="font-semibold">
+              قیمت : {convertToPersian(data?.price)}
+            </p>
           )}
           <p>آدرس : {data?.address}</p>
           <p className="text-ellipsis overflow-hidden whitespace-nowrap w-64">

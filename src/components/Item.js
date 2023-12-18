@@ -7,21 +7,13 @@ import { UserContext } from '@/context/UserContext';
 import noImageIcon from '../app/assets/images/no_image-icon.svg';
 import { deleteProperty } from '@/app/api';
 import { useRouter } from 'next/navigation';
+import { convertToPersian } from '@/utils';
 
 const Item = ({ data }) => {
   const { user } = useContext(UserContext);
-  const [attributes, setAttributes] = useState([]);
   const router = useRouter();
   const date = new Date(data?.createdAt).toLocaleDateString('fa-IR');
   const time = new Date(data?.createdAt).toLocaleTimeString('fa-IR');
-
-  useEffect(() => {
-    if (Array.isArray(data?.attributes)) {
-      setAttributes(data?.attributes);
-    } else {
-      setAttributes([data?.attributes]);
-    }
-  }, [data]);
 
   const onDeleteClick = async () => {
     deleteProperty(data?.type?.toLowerCase(), data?.id).then(() =>
@@ -29,7 +21,7 @@ const Item = ({ data }) => {
     );
   };
 
-  const attributesList = attributes?.map((attribute, index) => {
+  const attributesList = data?.attributes?.map((attribute, index) => {
     return (
       <span
         key={index}
@@ -97,13 +89,16 @@ const Item = ({ data }) => {
               <>
                 {data?.homeType === 'فروش' ? (
                   <>
-                    <p>قیمت : {data?.price}</p>
-                    <p>قیمت به ازای هر متر مکعب : {data?.pricePerMeter}</p>
+                    <p>قیمت : {convertToPersian(data?.price)}</p>
+                    <p>
+                      قیمت به ازای هر متر مکعب :{' '}
+                      {convertToPersian(data?.pricePerMeter)}
+                    </p>
                   </>
                 ) : (
                   <>
-                    <p>رهن : {data?.mortgage}</p>
-                    <p>اجاره : {data?.rent}</p>
+                    <p>رهن : {convertToPersian(data?.mortgage)}</p>
+                    <p>اجاره : {convertToPersian(data?.rent)}</p>
                   </>
                 )}
                 <p>سال ساخت : {data?.constructedDate}</p>
@@ -111,14 +106,14 @@ const Item = ({ data }) => {
               </>
             ) : data?.type === 'Car' ? (
               <>
-                <p>قیمت : {data?.price}</p>
+                <p>قیمت : {convertToPersian(data?.price)}</p>
                 <p>سال ساخت : {data?.dateModel}</p>
                 <p>گیر بکس: {data?.gearbox}</p>
                 <p>وضعیت موتور : {data?.motorStation}</p>
                 <p>کارکرد : {data?.operation}</p>
               </>
             ) : (
-              <p>قیمت : {data?.price}</p>
+              <p>قیمت : {convertToPersian(data?.price)}</p>
             )}
             <div className="mt-3">
               <p>آدرس : {data?.address}</p>

@@ -64,7 +64,7 @@ const Popover = () => {
           />
         </div>
         <ul
-          className={`bg-gray-300 p-4 w-full text-lg absolute mt-2 z-50 rounded-lg ${
+          className={`bg-gray-300 p-4 w-full text-lg absolute mt-2 z-50 rounded-lg shadow-xl ${
             isPopoverOpen
               ? 'opacity-100 translate-y-0 scale-100 visible'
               : 'opacity-0 translate-y-2 scale-105 invisible'
