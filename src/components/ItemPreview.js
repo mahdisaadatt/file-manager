@@ -68,7 +68,7 @@ const ItemPreview = ({ data }) => {
                   </>
                 )}
               </div>
-              <p>متراژ : {data?.meterage.toLocaleString()}</p>
+              <p>متراژ : {data?.meterage?.toLocaleString()}</p>
             </>
           ) : (
             <p className="font-semibold">

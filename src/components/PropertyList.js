@@ -4,7 +4,6 @@ const PropertyList = ({ properties, filters }) => {
   if (!properties) {
     return <p>چیزی پیدا نشد!</p>;
   }
-  console.log(filters);
   const renderedList = properties?.map((data, index) => {
     if (filters?.text) {
       if (!data?.title?.includes(filters?.text)) {
