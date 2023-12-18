@@ -114,7 +114,7 @@ export default function AddHomePage() {
             <h2 className="mb-4 font-bold text-xl">ویژگی ها</h2>
             <div className="flex mobile:flex-row flex-col mobile:items-center items-start gap-2 flex-wrap">
               <CheckBox
-                text="دارای آسانسور"
+                text="آسانسور"
                 id="elevator"
                 checked={hasElevator}
                 onChange={() => setHasElevator(!hasElevator)}

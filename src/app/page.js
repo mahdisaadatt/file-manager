@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState, useContext } from 'react';
-import FilterBar from '@/components/FilterBar';
+import FilterBar from '@/components/FilterBar/FilterBar';
 import PropertyList from '@/components/PropertyList';
 import { getProperties } from './api';
 import { UserContext } from '@/context/UserContext';
