@@ -4,10 +4,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: '127.0.0.1',
-        port: '8000',
-        pathname: '/media/files/property_cover/**',
+        protocol: 'https',
+        hostname: 'realestate-manager.iran.liara.run',
+        pathname: '/media/**',
       },
     ],
   },
