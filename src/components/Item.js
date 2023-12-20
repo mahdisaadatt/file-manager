@@ -99,6 +99,7 @@ const Item = ({ data }) => {
                   <>
                     <p>رهن : {convertToPersian(data?.mortgage)}</p>
                     <p>اجاره : {convertToPersian(data?.rent)}</p>
+                    <p>قابل تبدیل : {data?.convertable ? 'بله' : 'خیر'}</p>
                   </>
                 )}
                 <p>سال ساخت : {data?.constructedDate}</p>

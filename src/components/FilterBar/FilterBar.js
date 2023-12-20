@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Search from '../Search';
 import Filter from '../Filter';
 import Button from '../Button';
@@ -8,9 +8,10 @@ import CheckBox from '../CheckBox';
 import RangeSlider from '../RangeSlider';
 import Attributes from './Attributes';
 import Rooms from './Rooms';
+import DropDown from './DropDown';
 
 const METERAGE_MIN = 0;
-const METERAGE_MAX = 400;
+const METERAGE_MAX = 1000;
 
 const MORTGAGE_MIN = 100000000;
 const MORTGAGE_MAX = 5000000000;
@@ -23,7 +24,7 @@ const PRICE_MAX = 20000000000;
 
 const FilterBar = ({ setFilters, filters }) => {
   const [text, setText] = useState('');
-  const [selectedProperty, setSelectedProperty] = useState({});
+  const [selectedProperty, setSelectedProperty] = useState(propertyOptions[0]);
   const [selectedHomeType, setSelectedHomeType] = useState(homeOptions[0]);
   const [selectedStar, setSelectedStar] = useState({});
   const [rooms, setRooms] = useState([]);
@@ -41,6 +42,26 @@ const FilterBar = ({ setFilters, filters }) => {
   const [rent, setRent] = useState([RENT_MIN, RENT_MAX]);
   const [price, setPrice] = useState([PRICE_MIN, PRICE_MAX]);
 
+  useEffect(() => {
+    setMeterage([METERAGE_MIN, METERAGE_MAX]);
+  }, [hasMeterageSlider]);
+  useEffect(() => {
+    setPrice([PRICE_MIN, PRICE_MAX]);
+  }, [hasPriceSlider]);
+  useEffect(() => {
+    setMortgage([MORTGAGE_MIN, MORTGAGE_MAX]);
+  }, [hasMortgageSlider]);
+  useEffect(() => {
+    setRent([RENT_MIN, RENT_MAX]);
+  }, [hasRentSlider]);
+
+  useEffect(() => {
+    setHasMeterageSlider(false);
+    setHasMortgageSlider(false);
+    setHasRentSlider(false);
+    setHasPriceSlider(false);
+  }, [selectedProperty]);
+
   const onClearClick = () => {
     setFilters(null);
     setText('');
@@ -51,12 +72,16 @@ const FilterBar = ({ setFilters, filters }) => {
     setAttributes({});
     setConvertable(false);
     setFullMortgage(false);
+    setMeterage([METERAGE_MIN, METERAGE_MAX]);
+    setMortgage([MORTGAGE_MIN, MORTGAGE_MAX]);
+    setRent([RENT_MIN, RENT_MAX]);
+    setPrice([PRICE_MIN, PRICE_MAX]);
   };
   const onClick = () => {
     setFilters({
       text,
       selectedProperty: selectedProperty.value,
-      selectedHomeType: selectedHomeType.label,
+      selectedHomeType,
       selectedStar: selectedStar.value,
       rooms,
       attributes,
@@ -100,32 +125,29 @@ const FilterBar = ({ setFilters, filters }) => {
         </div>
         {selectedProperty.value === 'home' ? (
           <div className="flex flex-col mobile:items-start items-center justify-between gap-4 w-full">
-            <div className="desktop:w-1/2 tablet:w-5/6 w-full flex mobile:flex-row flex-col tablet:items-start items-center mobile:gap-8 gap-4">
+            <div className="w-full flex flex-col items-start gap-4 flex-wrap">
               <Rooms setRooms={setRooms} />
+              <hr className="h-[2px] w-full bg-gray-500" />
               <Attributes setAttributes={setAttributes} />
             </div>
             <hr className="h-[2px] w-full bg-gray-500" />
             {selectedHomeType.value === 'rent' ? (
-              <div className="flex flex-col mobile:items-start items-center justify-center gap-4 w-full">
-                <div className="flex gap-4 flex-wrap justify-center">
-                  <h2 className="font-bold text-lg">وضعیت مالی</h2>
-                  <div className="flex gap-4 flex-wrap justify-center items-center">
-                    <CheckBox
-                      text="قابل تبدیل"
-                      id="convertable"
-                      checked={convertable}
-                      onChange={() => setConvertable(!convertable)}
-                    />
-                    <CheckBox
-                      text="رهن کامل"
-                      id="fullMortgage"
-                      checked={fullMortgage}
-                      onChange={() => setFullMortgage(!fullMortgage)}
-                    />
-                  </div>
-                </div>
-                <hr className="h-[3px] w-full bg-gray-500" />
-                <div className="flex gap-4 flex-wrap justify-center items-center">
+              <div className="desktop:w-1/2 tablet:w-5/6 w-full flex mobile:flex-row flex-col tablet:items-start items-center mobile:gap-8 gap-4">
+                <DropDown title="وضعیت مالی">
+                  <CheckBox
+                    text="قابل تبدیل"
+                    id="convertable"
+                    checked={convertable}
+                    onChange={() => setConvertable(!convertable)}
+                  />
+                  <CheckBox
+                    text="رهن کامل"
+                    id="fullMortgage"
+                    checked={fullMortgage}
+                    onChange={() => setFullMortgage(!fullMortgage)}
+                  />
+                </DropDown>
+                <DropDown title="رنج ها">
                   <CheckBox
                     text="رنج متراژ"
                     id="hasMeterage"
@@ -146,11 +168,11 @@ const FilterBar = ({ setFilters, filters }) => {
                       onChange={() => setHasRentSlider(!hasRentSlider)}
                     />
                   ) : null}
-                </div>
+                </DropDown>
               </div>
             ) : (
-              <div className="flex flex-col mobile:items-start items-center justify-center gap-4 w-full">
-                <div className="flex gap-4 flex-wrap justify-center items-center">
+              <div className="desktop:w-1/4 tablet:w-4/6 w-full flex mobile:flex-row flex-col tablet:items-start items-center mobile:gap-8 gap-4">
+                <DropDown title="رنج ها">
                   <CheckBox
                     text="رنج متراژ"
                     id="hasMeterage"
@@ -163,7 +185,7 @@ const FilterBar = ({ setFilters, filters }) => {
                     checked={hasPriceSlider}
                     onChange={() => setHasPriceSlider(!hasPriceSlider)}
                   />
-                </div>
+                </DropDown>
               </div>
             )}
             <div className="flex gap-4 items-center justify-center flex-wrap w-full">
