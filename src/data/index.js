@@ -7,6 +7,10 @@ export const homeOptions = [
     label: 'فروش',
     value: 'sell',
   },
+  {
+    label: 'همه',
+    value: 'all',
+  },
 ];
 
 export const propertyOptions = [
@@ -21,6 +25,10 @@ export const propertyOptions = [
   {
     label: 'متفرقه',
     value: 'other',
+  },
+  {
+    label: 'همه',
+    value: 'all',
   },
 ];
 
@@ -44,5 +52,9 @@ export const starOptions = [
   {
     label: '★★★★★',
     value: 5,
+  },
+  {
+    label: 'همه',
+    value: 'all',
   },
 ];

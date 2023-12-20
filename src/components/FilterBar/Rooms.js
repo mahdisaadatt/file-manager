@@ -1,77 +1,60 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import CheckBox from '../CheckBox';
-import DropDown from './DropDown';
 
 const Rooms = ({ setRooms }) => {
-  const [singleChecked, setSingleChecked] = useState({
-    checked: true,
-    value: 1,
-  });
-  const [doubleChecked, setDoubleChecked] = useState({
-    checked: true,
-    value: 2,
-  });
-  const [tripleChecked, setTripleChecked] = useState({
-    checked: true,
-    value: 3,
-  });
-  const [fourChecked, setFourChecked] = useState({ checked: true, value: 4 });
-  const [fiveChecked, setFiveChecked] = useState({ checked: true, value: 5 });
+  const [singleChecked, setSingleChecked] = useState(false);
+  const [doubleChecked, setDoubleChecked] = useState(false);
+  const [tripleChecked, setTripleChecked] = useState(false);
+  const [fourChecked, setFourChecked] = useState(false);
+  const [fiveChecked, setFiveChecked] = useState(false);
 
   useEffect(() => {
     setRooms([
-      singleChecked.checked ? singleChecked.value : null,
-      doubleChecked.checked ? doubleChecked.value : null,
-      tripleChecked.checked ? tripleChecked.value : null,
-      fourChecked.checked ? fourChecked.value : null,
-      fiveChecked.checked ? fiveChecked.value : null,
+      singleChecked,
+      doubleChecked,
+      tripleChecked,
+      fourChecked,
+      fiveChecked,
     ]);
   }, [singleChecked, doubleChecked, tripleChecked, fourChecked, fiveChecked]);
 
   return (
-    <DropDown title="تعداد خواب ها">
-      <CheckBox
-        text="تک خواب"
-        id="single"
-        checked={singleChecked.checked}
-        onChange={() =>
-          setSingleChecked({ checked: !singleChecked.checked, value: 1 })
-        }
-      />
-      <CheckBox
-        text="دو خواب"
-        id="double"
-        checked={doubleChecked.checked}
-        onChange={() =>
-          setDoubleChecked({ checked: !doubleChecked.checked, value: 2 })
-        }
-      />
-      <CheckBox
-        text="سه خواب"
-        id="triple"
-        checked={tripleChecked.checked}
-        onChange={() =>
-          setTripleChecked({ checked: !tripleChecked.checked, value: 3 })
-        }
-      />
-      <CheckBox
-        text="چهار خواب"
-        id="four"
-        checked={fourChecked.checked}
-        onChange={() =>
-          setFourChecked({ checked: !fourChecked.checked, value: 4 })
-        }
-      />
-      <CheckBox
-        text="پنج خواب"
-        id="five"
-        checked={fiveChecked.checked}
-        onChange={() =>
-          setFiveChecked({ checked: !fiveChecked.checked, value: 5 })
-        }
-      />
-    </DropDown>
+    <div className="flex flex-col gap-3 justify-center flex-wrap tablet:items-start items-center">
+      <h2 className="font-bold text-lg">تعداد اتاق خواب</h2>
+      <div className="flex items-center justify-center flex-wrap gap-2 mx-4">
+        <CheckBox
+          text="تک خواب"
+          id="single"
+          checked={singleChecked}
+          onChange={() => setSingleChecked(!singleChecked)}
+        />
+        <CheckBox
+          text="دو خواب"
+          id="double"
+          checked={doubleChecked}
+          onChange={() => setDoubleChecked(!doubleChecked)}
+        />
+        <CheckBox
+          text="سه خواب"
+          id="triple"
+          checked={tripleChecked}
+          onChange={() => setTripleChecked(!tripleChecked)}
+        />
+        <CheckBox
+          text="چهار خواب"
+          id="four"
+          checked={fourChecked}
+          onChange={() => setFourChecked(!fourChecked)}
+        />
+        <CheckBox
+          text="پنج خواب"
+          id="five"
+          checked={fiveChecked}
+          onChange={() => setFiveChecked(!fiveChecked)}
+        />
+      </div>
+    </div>
   );
 };
 
