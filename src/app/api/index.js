@@ -1,4 +1,4 @@
-const ENDPOINT = 'https://realestate-manager.iran.liara.run';
+const ENDPOINT = 'https://file-manager-django.up.railway.app';
 
 // Get property
 export const getProperties = async () => {
