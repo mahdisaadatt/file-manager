@@ -5,7 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'realestate-manager.iran.liara.run',
+        hostname: 'file-manager-django.up.railway.app/',
         pathname: '/media/**',
       },
     ],
